@@ -17,7 +17,7 @@ cv2.namedWindow('OpenCV Feed', cv2.WINDOW_NORMAL)
 cv2.resizeWindow('OpenCV Feed', 1040, 780) # Phóng to cửa sổ
 
 mp_holistic = mp.solutions.holistic # Hàm trả về vị trí các điểm pose trên cơ thể
-cap = cv2.VideoCapture(0)  # Mở Camera 0 là máy thầy phải flip, 1 là camera rời không cần flip
+cap = cv2.VideoCapture(0)  # Mở Camera 0 
 
 i = 0  # Đếm số lần dự đoán
 frame_count = 0  # Đếm số khung hình
@@ -58,7 +58,7 @@ with mp_holistic.Holistic(min_detection_confidence = 0.5, min_tracking_confidenc
         # # Sau một thời gian để xuất hiện số frame nhất định
         if locations_array.shape[1] == window_size: #(time.time() - pre_time1) >= time_to_predict and 
             predict_value = model.predict(locations_array)  # Dự đoán 
-            predicted_labels = ["Fall" if value >= 0.5 else "Normal" for value in predict_value]  # Càng gần 1 thì phần trăm là ngã cao hơn
+            predicted_labels = ["Fall" if value >= 0.5 else "Normal" for value in predict_value]  # chọn ngưỡng
             pre_time1 = time.time()  # Lưu lại thời điểm dự đoán
         if "Fall" in predicted_labels:
             break
